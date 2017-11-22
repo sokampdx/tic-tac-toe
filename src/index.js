@@ -90,6 +90,13 @@ class Game extends React.Component {
   }
 }
 
+function isSameRow(squares, cells) {
+  return (
+    squares[cells[0]] &&
+    squares[cells[0]] === squares[cells[1]] &&
+    squares[cells[0]] === squares[cells[2]]
+  );
+}
 function calculateWinner(squares) {
   const lines = [
     [0, 1, 2],
@@ -103,9 +110,8 @@ function calculateWinner(squares) {
   ];
 
   for (let i = 0; i < lines.length; i++) {
-    const [a, b, c] = lines[i];
-    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+    if (isSameRow(squares, lines[i])) {
+      return squares[lines[i][0]];
     }
   }
   return null;
